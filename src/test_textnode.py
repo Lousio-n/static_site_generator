@@ -31,12 +31,12 @@ class TestTextNode(unittest.TestCase):
     def test_not_eq_text(self):
         node = Textnode("this is a textnode", text_type_text)
         node2 = Textnode("this is different", text_type_text)
-        self.assertNotEquals(node, node2)
+        self.assertNotEqual(node, node2)
 
     def test_not_eq_text_type(self):
         node = Textnode("this is a textnode", text_type_bold)
         node2 = Textnode("this is a textnode", text_type_italic)
-        self.assertNotEquals(node, node2)
+        self.assertNotEqual(node, node2)
 
     def test_repr(self):
         node = Textnode("this is a textnode",
