@@ -46,13 +46,13 @@ class ParentNode(HTMLNode):
             raise ValueError("Error: parentnode must have children")
 
         def child_nodes_to_html(lst):
-            html_string = ""
+            children_html = ""
             for item in lst:
                 if not isinstance(item, list):
-                    html_string += item.to_html()
+                    children_html += item.to_html()
                 else:
-                    html_string += child_nodes_to_html(item)
-            return f"<{self.tag}{self.props_to_html()}>{html_string}</{self.tag}>"
+                    children_html += child_nodes_to_html(item)
+            return f"<{self.tag}{self.props_to_html()}>{children_html}</{self.tag}>"
         return child_nodes_to_html(self.children)
 
     def __repr__(self):
