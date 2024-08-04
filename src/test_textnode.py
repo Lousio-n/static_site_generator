@@ -47,6 +47,22 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(
             "Textnode(this is a textnode, link, https://url.com)", repr(node))
 
+
+class TestTextNodeToHtmlNode(unittest.TestCase):
+    def test_text(self):
+        node = Textnode("this is a textnode", text_type_text)
+        html_node = text_node_to_html_node(node)
+        self.assertEqual(html_node.tag, None)
+        self.assertEqual(html_node.value, "this is a textnode")
+
+    def test_image(self):
+        node = Textnode("image", text_type_image, "https://image.test")
+        html_node = text_node_to_html_node(node)
+        self.assertEqual(html_node.tag, "img")
+        self.assertEqual(html_node.value, "")
+        self.assertEqual(html_node.props, {
+                         "src": "https://image.test", "alt": "image"})
+
     def test_text_to_html(self):
         node = Textnode("this is a textnode", text_type_bold)
         self.assertEqual("LeafNode(b, this is a textnode, None)",
