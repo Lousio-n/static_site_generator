@@ -2,6 +2,7 @@ import unittest
 
 from textnode import (
     Textnode,
+    text_node_to_html_node,
     text_type_bold,
     text_type_code,
     text_type_link,
@@ -9,6 +10,8 @@ from textnode import (
     text_type_image,
     text_type_italic,
 )
+
+from htmlnode import LeafNode
 
 
 class TestTextNode(unittest.TestCase):
@@ -43,6 +46,17 @@ class TestTextNode(unittest.TestCase):
                         text_type_link, "https://url.com")
         self.assertEqual(
             "Textnode(this is a textnode, link, https://url.com)", repr(node))
+
+    def test_text_to_html(self):
+        node = Textnode("this is a textnode", text_type_bold)
+        self.assertEqual("LeafNode(b, this is a textnode, None)",
+                         repr(text_node_to_html_node(node)))
+
+    def test_textnode_with_url(self):
+        node = Textnode("test",
+                        text_type_link, "https://url.com")
+        self.assertEqual(text_node_to_html_node(node).to_html(),
+                         '<a href="https://url.com">test</a>')
 
 
 if __name__ == "__main__":
