@@ -28,6 +28,13 @@ class test_split_nodes(unittest.TestCase):
         self.assertEqual(new_nodes, [Textnode("text ", text_type_text), Textnode(
             "italic", text_type_italic), Textnode(" text ", text_type_text), Textnode("italic", text_type_italic)])
 
+    def test_bold_and_italic(self):
+        node = Textnode("**bold** and *italic*", text_type_text)
+        new_nodes = split_nodes_delimiter([node], "**", text_type_bold)
+        new_nodes = split_nodes_delimiter(new_nodes, "*", text_type_italic)
+        self.assertEqual(new_nodes, [Textnode("bold", text_type_bold), Textnode(
+            " and ", text_type_text), Textnode("italic", text_type_italic)])
+
 
 if __name__ == "__main__":
     unittest.main()
